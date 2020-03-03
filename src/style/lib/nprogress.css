@@ -1,0 +1,3 @@
+@import 'nprogress/nprogress.css';
+
+#nprogress .bar { background: #345CBC; }

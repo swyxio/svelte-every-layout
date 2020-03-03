@@ -1,0 +1,32 @@
+:root {
+
+	/* Colors */
+	--color-dark: hsl(0, 0%, 2%);
+	--color-darkish: hsl(0, 0%, 25%);
+	--color-lightish: hsl(0, 0%, 90%);
+	--color-light: hsl(0, 0%, 98%);
+	--color-mid: hsl(0, 0%, 50%);
+
+	/* Scale */
+	--ratio: 1.4;
+	--s-5: calc(var(--s0) / var(--ratio) / var(--ratio) / var(--ratio) / var(--ratio) / var(--ratio));
+	--s-4: calc(var(--s0) / var(--ratio) / var(--ratio) / var(--ratio) / var(--ratio));
+	--s-3: calc(var(--s0) / var(--ratio) / var(--ratio) / var(--ratio));
+	--s-2: calc(var(--s0) / var(--ratio) / var(--ratio));
+	--s-1: calc(var(--s0) / var(--ratio));
+	--s0: 1rem;
+	--s1: calc(var(--s0) * var(--ratio));
+	--s2: calc(var(--s0) * var(--ratio) * var(--ratio));
+	--s3: calc(var(--s0) * var(--ratio) * var(--ratio) * var(--ratio));
+	--s4: calc(var(--s0) * var(--ratio) * var(--ratio) * var(--ratio) * var(--ratio));
+	--s5: calc(var(--s0) * var(--ratio) * var(--ratio) * var(--ratio) * var(--ratio) * var(--ratio));
+
+	/* Measure */
+	--measure: 65ch;
+
+	/* Line height */
+	--line-height: var(--ratio);
+	--line-height-small: calc(0.8 * var(--ratio));
+	--border-thin: var(--s-5);
+	--border-thick: var(--s-2);
+}

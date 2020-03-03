@@ -1,0 +1,37 @@
+{
+    "name": "front-end-boilerplate",
+    "description": "A modern front-end boilerplate utilising: Parcel, Tailwind and Svelte",
+    "keywords": [],
+    "author": "Aaron George <aaron.dean.george@gmail.com> (https://github.com/aarongeorge)",
+    "version": "0.0.1",
+    "license": "MIT",
+    "scripts": {
+        "build": "yarn run clean && cross-env NODE_ENV=local npx parcel build ./src/index.pug --no-source-maps",
+        "build:prod": "yarn run clean && cross-env NODE_ENV=production npx parcel build ./src/index.pug --no-source-maps",
+        "clean": "rm -rf ./dist ./.cache",
+        "serve": "yarn run clean && cross-env NODE_ENV=local npx parcel serve ./src/index.pug",
+        "serve:prod": "yarn run clean && cross-env NODE_ENV=production npx parcel serve ./src/index.pug"
+    },
+    "devDependencies": {
+        "@fullhuman/postcss-purgecss": "^2.0.6",
+        "@types/node": "^13.7.1",
+        "@types/nprogress": "^0.2.0",
+        "autoprefixer": "^9.7.3",
+        "cross-env": "^7.0.0",
+        "eslint": "^6.7.1",
+        "eslint-plugin-svelte3": "^2.7.3",
+        "parcel-bundler": "^1.12.4",
+        "parcel-plugin-svelte": "^4.0.5",
+        "postcss-import": "^12.0.1",
+        "pug": "^2.0.4",
+        "stylus": "^0.54.7",
+        "svelte": "^3.0.0",
+        "tailwindcss": "^1.1.4",
+        "typescript": "^3.7.3"
+    },
+    "dependencies": {
+        "axios": "^0.19.0",
+        "nprogress": "^0.2.0",
+        "svelte-spa-router": "^2.0.0"
+    }
+}

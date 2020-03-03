@@ -1,0 +1,5 @@
+@import './lib/tailwind.css';
+@import './lib/nprogress.css';
+@import './lib/layout.css';
+
+* { box-sizing: border-box; }
