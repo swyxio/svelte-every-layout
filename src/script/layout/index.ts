@@ -2,7 +2,9 @@ interface Instance {
 	el: HTMLElement
 	id: string,
 	styleEl: HTMLStyleElement,
-	props: {},
+	props: {
+		[P: string]: any
+	},
 	name: string,
 	styleFn: (instance: this) => string
 }
@@ -16,9 +18,9 @@ export class EveryLayout {
 		this.instanceIdCount = 0
 	}
 
-	onPropsUpdate (instance: Instance, props) {
+	onPropsUpdate (instance: Instance, props: typeof instance.props) {
 		instance.props = props
-		const newId = this.generateId(instance.name, instance.props)
+		const newId = this.generateId(instance)
 
 		if (instance.id === newId) return
 
@@ -27,31 +29,25 @@ export class EveryLayout {
 		const create = newIdInstances.length === 0
 		const remove = oldIdInstances.length === 1
 
-		this.setIdOnEl(instance.el, newId)
-		instance.id = this.generateId(instance.name, instance.props)
+		this.setId(instance, newId)
 
 		if (remove) instance.styleEl.remove()
-		if (create) {
-			instance.styleEl = this.generateStyleEl(instance.styleFn(instance), newId)
-			document.head.appendChild(instance.styleEl)
-		}
+		if (create) this.createStyleEl(instance)
 		else instance.styleEl = newIdInstances[0].styleEl
 	}
 
-	setIdOnEl (el: HTMLElement, id: string) {
-		el.dataset.id = id
+	setId (instance: Instance, id: string) {
+		instance.id = id
+		instance.el.dataset.id = id
 	}
 
 	mount (instance: Instance) {
-		instance.id = this.generateId(instance.name, instance.props)
-		this.setIdOnEl(instance.el, instance.id)
-		const existingIdInstances = this.getInstancesById(instance.el.dataset.id)
+		this.setId(instance, this.generateId(instance))
+
+		const existingIdInstances = this.getInstancesById(instance.id)
 
 		if (existingIdInstances.length) instance.styleEl = existingIdInstances[0].styleEl
-		else {
-			instance.styleEl = this.generateStyleEl(instance.styleFn(instance), instance.id)
-			document.head.appendChild(instance.styleEl)
-		}
+		else this.createStyleEl(instance)
 
 		this.instances.push(instance)
 
@@ -60,22 +56,22 @@ export class EveryLayout {
 
 	destroy (instance: Instance) {
 		this.instances = this.instances.filter(inst => inst.id !== instance.id)
-		if (this.getInstancesById(instance.el.dataset.id).length === 0) instance.styleEl.remove()
+		this.getInstancesById(instance.id).length === 0 && instance.styleEl.remove()
 	}
 
-	generateStyleEl (innerHTML: string, id: string) {
-		const styleEl = document.createElement('style')
-		styleEl.id = id
-		styleEl.innerHTML = innerHTML
-		return styleEl
+	createStyleEl (instance: Instance) {
+		instance.styleEl = document.createElement('style')
+		instance.styleEl.id = instance.id
+		instance.styleEl.innerHTML = instance.styleFn(instance)
+		document.head.appendChild(instance.styleEl)
 	}
 
 	getInstancesById (id: string) {
 		return this.instances.filter(inst => inst.el.dataset.id === id)
 	}
 
-	generateId (name: string, props) {
-		return [name, ...Object.values(props)]
+	generateId (instance: Instance) {
+		return [instance.name, ...Object.values(instance.props)]
 			.map(v => String(v).replace(/[^a-zA-Z0-9-_]/g, '_'))
 			.join('-')
 	}

@@ -1,10 +1,11 @@
 {
-    "name": "front-end-boilerplate",
-    "description": "A modern front-end boilerplate utilising: Parcel, Tailwind and Svelte",
+    "name": "svelte-every-layout",
+    "description": "An implementation of the Every-Layout.dev components using Svelte that also includes cleaning up of styles",
     "keywords": [],
     "author": "Aaron George <aaron.dean.george@gmail.com> (https://github.com/aarongeorge)",
-    "version": "0.0.1",
-    "license": "MIT",
+    "version": "1.0.0",
+	"license": "MIT",
+	"main": "src/script/layout/index.ts",
     "scripts": {
         "build": "yarn run clean && cross-env NODE_ENV=local npx parcel build ./src/index.pug --no-source-maps",
         "build:prod": "yarn run clean && cross-env NODE_ENV=production npx parcel build ./src/index.pug --no-source-maps",
